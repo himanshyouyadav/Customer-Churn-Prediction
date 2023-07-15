@@ -82,5 +82,5 @@ def predict():
     #     print(result)
     return render_template('home.html',result=result)    
 
-app.debug = True 
+app.debug = False 
 app.run()
