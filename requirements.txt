@@ -3,3 +3,4 @@ flask
 numpy
 pandas
 Gunicorn
+xgboost
