@@ -64,9 +64,6 @@ def predict():
     print(df_2.columns.values,df_2.shape)
 
     dummy_df = pd.get_dummies(df_2)
-    print(dummy_df.shape)
-    print(new_df.dtypes)
-    print(dummy_df.columns.values)
 
     model = pickle.load(open("model.sav", "rb"))
     single = model.predict(dummy_df.tail(1))
@@ -82,5 +79,4 @@ def predict():
     #     print(result)
     return render_template('home.html',result=result)    
 
-app.debug = False 
-app.run()
+app.run(debug=False)
