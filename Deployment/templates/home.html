@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- ['SeniorCitizen', 'MonthlyCharges', 'TotalCharges', 'gender', 
+                                           'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService',
+                                           'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport',
+                                           'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling',
+                                           'PaymentMethod', 'tenure'] -->
+
+                                           <!-- ['gender_Female' 'gender_Male' 'SeniorCitizen_0' 'SeniorCitizen_1'
+ 'SeniorCitizen_0' 'Partner_No' 'Partner_Yes' 'Dependents_No'
+ 'Dependents_Yes' 'PhoneService_No' 'PhoneService_Yes' 'MultipleLines_No'
+ 'MultipleLines_No phone service' 'MultipleLines_Yes'
+
+ 'InternetService_DSL' 'InternetService_Fiber optic' 'InternetService_No'
+
+ 'OnlineSecurity_No' 'OnlineSecurity_No internet service' 'OnlineSecurity_Yes'
+
+'OnlineBackup_No' 'OnlineBackup_No internet service' 'OnlineBackup_Yes'
+
+'DeviceProtection_No' 'DeviceProtection_No internet service' 'DeviceProtection_Yes'
+
+ 'TechSupport_No' 'TechSupport_No internet service' 'TechSupport_Yes'
+
+ 'StreamingTV_No' 'StreamingTV_No internet service' 'StreamingTV_Yes'
+
+ 'StreamingMovies_No' 'StreamingMovies_No internet service' 'StreamingMovies_Yes' 
+
+ 'Contract_Month-to-month' 'Contract_One year' 'Contract_Two year'
+
+ 'PaperlessBilling_No' 'PaperlessBilling_Yes'
+
+ 'PaymentMethod_Bank transfer (automatic)' 'PaymentMethod_Credit card (automatic)' 'PaymentMethod_Electronic check'
+ 'PaymentMethod_Mailed check' 'PaymentMethod_Mailed check\r\n'
+ 
+ 'tenure_group_1 - 12' 'tenure_group_13 - 24' 'tenure_group_25 - 36'
+ 'tenure_group_37 - 48' 'tenure_group_49 - 60' 'tenure_group_61 - 72'] -->
+
+</head>
+<body>
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-3">Telicom Customer Churn Predictor</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <span class="anchor" id="formUserEdit"></span>
+                        <hr class="my-5">
+                        <!-- form user info -->
+                        <div class="card card-outline-secondary">
+                            <div class="card-header">
+                                <h3 class="mb-0">User Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="container">
+                                    {% if result[0] == 1 %}
+                                    <div class="alert alert-danger fade show alert-dismissible" role="alert">
+                                      <strong><i class="fa fa-warning" aria-hidden="true"></i></strong> He is likely to churn with a confidence of {{result[1]}}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    {% elif result[0] == 0 %}
+                                    <div class="alert alert-success fade show alert-dismissible" role="alert">
+                                        <strong><i class=" fa fa-check-circle" aria-hidden="true"></i></strong> He is not likely to churn with a confidence of {{result[2]}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    {% else %}
+                                    <p></p>
+                                    {% endif %}
+                                    <!-- {% print(result) %} -->
+                                </div>
+                                <form autocomplete="off" class="form" role="form" method="post" action="/">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Senior Citizen</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="SeniorCitizen">
+                                                <option value=1>
+                                                    Yes
+                                                </option>
+                                                <option value=0>
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Monthly Charges</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="number" step="any" placeholder="Ex...35.00" name="MonthlyCharges" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Total Charges</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="number" step="any" placeholder="Ex...1250.00" name="TotalCharges" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Gender</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="Gender">
+                                                <option value="Male">
+                                                    Male
+                                                </option>
+                                                <option value="Female">
+                                                    Female
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Partner</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="Partner">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Dependents</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="Dependents">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Phone Service</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="PhoneService">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Multiple Lines</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="MultipleLines">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No phone service">
+                                                    No Phone Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Internet Service</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="InternetService">
+                                                <option value="DSL">
+                                                    DSL
+                                                </option>
+                                                <option value="Fiber optic">
+                                                    Optical Fiber
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Online Security</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="OnlineSecurity">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Online Backup</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="OnlineBackup">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Device Protection</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="DeviceProtection">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Tech Support</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="TechSupport">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">StreamingTV</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="StreamingTV">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Streaming Movies</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="StreamingMovies">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                                <option value="No internet service">
+                                                    No Internet Service
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Contract</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="Contract">
+                                                <option value="Month-to-month">
+                                                    One-Month
+                                                </option>
+                                                <option value="One year">
+                                                    One-Year
+                                                </option>
+                                                <option value="Two year">
+                                                    Two-Year
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Paperless Billing</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="PaperlessBilling">
+                                                <option value="Yes">
+                                                    Yes
+                                                </option>
+                                                <option value="No">
+                                                    No
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Payment Method</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="user_time_zone" size="0" name="PaymentMethod">
+                                                <option value="Bank transfer (automatic)">
+                                                    Automatic Bank Transfer
+                                                </option>
+                                                <option value="Credit card (automatic)">
+                                                    Automatic Credit Card Deduction
+                                                </option>
+                                                <option value="Electronic check">
+                                                    Electronic Check
+                                                </option>
+                                                <option value="Mailed check">
+                                                    Mailed Check
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Tenure (In Month)</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="number" placeholder="Ex...12" name="Tenure" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                                        <div class="col-lg-9">
+                                            <!-- <input class="btn btn-secondary" type="reset" value="Cancel"> -->
+                                            <input class="btn btn-primary" type="submit" value="Predict">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div><!-- /form user info -->
+                    </div>
+            </div><!--/col-->
+        </div><!--/row-->
+       
+    </div><!--/container-->
+</body>
+</html>
