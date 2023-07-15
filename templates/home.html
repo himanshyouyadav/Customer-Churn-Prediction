@@ -62,6 +62,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="container">
+                                {% if result %}
                                     {% if result[0] == 1 %}
                                     <div class="alert alert-danger fade show alert-dismissible" role="alert">
                                       <strong><i class="fa fa-warning" aria-hidden="true"></i></strong> He is likely to churn with a confidence of {{result[1]}}
@@ -80,6 +81,7 @@
                                     <p></p>
                                     {% endif %}
                                     <!-- {% print(result) %} -->
+                                {% endif %}
                                 </div>
                                 <form autocomplete="off" class="form" role="form" method="post" action="/">
                                     <div class="form-group row">

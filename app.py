@@ -10,7 +10,7 @@ app = Flask('__name__')
 df_1=pd.read_csv("load_data.csv")
 df_1.drop('Unnamed: 0',axis=1,inplace=True)
 
-@app.route('/')
+@app.route('/',methods=['GET'])
 def load_app():
     return render_template('home.html')
 
