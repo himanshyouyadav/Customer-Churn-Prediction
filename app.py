@@ -63,5 +63,3 @@ def predict():
     result = [single[0],model.predict_proba(dummy_df.tail(1))[:,1][0],model.predict_proba(dummy_df.tail(1))[:,0][0]]
 
     return render_template('home.html',result=result)    
-
-app.run()
