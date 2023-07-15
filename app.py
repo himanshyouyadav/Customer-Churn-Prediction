@@ -12,7 +12,7 @@ df_1.drop('Unnamed: 0',axis=1,inplace=True)
 
 @app.route('/')
 def load_app():
-    return render_template('home1.html')
+    return render_template('home.html')
 
 @app.route('/',methods=['POST'])
 def predict():
@@ -64,4 +64,4 @@ def predict():
 
     return render_template('home.html',result=result)    
 
-app.run(debug=False)
+app.run()
